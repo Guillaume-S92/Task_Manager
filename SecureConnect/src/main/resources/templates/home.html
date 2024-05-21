@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestionnaire de Tâches</title>
+    <link rel="stylesheet" th:href="@{../css/home.css}">
+</head>
+<body>
+
+<div id="messages" th:if="${message != null}">
+    <span class="message" th:text="${message}"></span>
+</div>
+
+<div class="header">
+    <h1>Gestionnaire de Tâches</h1>
+    <div id="logout">
+        <span sec:authorize="isAuthenticated">
+            <a th:href="@{/logout}">Logout</a>
+        </span>
+    </div>
+</div>
+
+<div id="contenu">
+    <form th:action="@{/home}" method="post" th:object="${task}">
+        <div id="formulaire">
+            <h2>Ajouter une Tâche</h2>
+            <input th:field="*{name}" type="text" id="nouvelleTache" placeholder="Entrez le nom de la tâche">
+            <br/>
+            <input th:field="*{description}" type="text" id="descriptionTache" placeholder="Entrez la description de la tâche">
+            <div class="status-priority">
+                <select th:field="*{status}">
+                    <option value="TODO">À faire</option>
+                    <option value="IN_PROGRESS">En cours</option>
+                    <option value="DONE">Terminée</option>
+                </select>
+                <select th:field="*{priority}">
+                    <option value="0">Faible</option>
+                    <option value="1">Moyenne</option>
+                    <option value="2">Haute</option>
+                </select>
+                <input type="date" th:field="*{dueDate}" id="dueDate">
+            </div>
+            <button type="submit">Ajouter</button>
+        </div>
+    </form>
+
+    <div id="tachesEnCours">
+        <h2>Liste des Tâches</h2>
+        <ul id="listeTachesEnCours">
+            <li th:each="task, iterStat : ${tasks}" th:unless="${task.status == 'DONE'}">
+                <span th:text="${task.name}">Tâche</span>
+                <br>
+                <span th:text="${task.description}">Tâche</span>
+                <span th:if="${task.dueDate != null}"> (Échéance: [[${task.dueDate}]])</span>
+                <span th:text="${task.status}">Status</span>
+                <form th:action="@{/deleteTask/{id}(id=${task.id})}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Supprimer</button>
+                </form>
+                <form th:action="@{/markAsCompleted/{id}(id=${task.id})}" method="post">
+                    <input type="hidden" name="_method" value="put">
+                    <button type="submit">Terminé</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
+    <div id="tachestermine">
+        <h2>Tâches terminées</h2>
+        <ul id="listeTachesTerminees">
+            <li th:each="completedTask : ${completedTasks}" th:class="${completedTask.status}">
+                <span th:text="${completedTask.name}">Nom de la tâche</span>
+                <br>
+                <span th:text="${completedTask.description}">Description de la tâche</span>
+                <span th:if="${completedTask.dueDate != null}"> (Échéance: [[${completedTask.dueDate}]])</span>
+                <span th:text="${completedTask.status}">Status</span>
+                <form th:action="@{/deleteTask/{id}(id=${completedTask.id})}" method="post">
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        </ul>
+    </div>
+</div>
+
+</body>
+</html>

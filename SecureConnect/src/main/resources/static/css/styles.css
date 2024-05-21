@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2; /* Couleur de fond */
+    color: #333; /* Couleur du texte */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Utilisation de la hauteur de la fenêtre */
+    display: flex; /* Utilisation de Flexbox pour le centrage */
+    align-items: center; /* Centrer verticalement */
+    justify-content: center; /* Centrer horizontalement */
+}
+
+.container {
+    width: 20%;
+    padding: 20px;
+    background-color: #fff; /* Couleur de fond */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+h2 {
+    color: #45b6fe; /* Couleur du titre */
+}
+
+.form-group {
+    margin-bottom: 20px;
+    width: 95%;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+    color: #555; /* Couleur du texte */
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* Bordure */
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Couleur de fond */
+    color: #333; /* Couleur du texte */
+}
+
+input[type="submit"] {
+    background-color: #45b6fe; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte du bouton */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.message {
+    background-color: #45b6fe; /* Couleur de fond du message */
+    color: white; /* Couleur du texte du message */
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
