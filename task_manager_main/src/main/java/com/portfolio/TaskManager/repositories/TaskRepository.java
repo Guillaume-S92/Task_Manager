@@ -1,0 +1,14 @@
+package com.portfolio.TaskManager.repositories;
+
+import com.portfolio.TaskManager.model.Task;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface TaskRepository extends JpaRepository <Task, Long> {
+    List<Task> findByUserEmail(String userEmail);
+
+    List<Task> findByUserEmailAndName(String userEmail, String name);
+}
